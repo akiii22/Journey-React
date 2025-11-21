@@ -129,3 +129,7 @@ let product3 = {title: "sparkle"}
 let products: {title: string, price?: number}[] = [product1, product2, product3]
 products[2].price = 13
 // products[2].price = "str"
+
+// * *## Functions - Fundamentals
+
+// * In TypeScript, functions can have typed parameters and return values, which provides static type checking and autocompletion support.
