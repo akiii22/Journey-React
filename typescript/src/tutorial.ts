@@ -1,4 +1,5 @@
 // * * Type Annotations
+
 // * TypeScript Type Annotations allow developers to specify the types of variables, function parameters, return types, and object properties.
 let awesomeName: string = "Jerome";
 awesomeName = "something";
@@ -85,7 +86,7 @@ let fruit: string[] = ["apple", "orange"];
 // let names = ["peter", "susan", 1];
 let arr: (string | boolean)[] = ["apple", true];
 
-## Challenge
+// ## Challenge
 
 /* Create an array temperatures of type number[] and assign it some values. Then, try to add a string value to it.
 Create an array colors of type string[] and assign it some values. Then, try to add a boolean value to it.
@@ -99,15 +100,15 @@ let mixedArr: (string | number)[] = ["john", 12, "belga", 14];
 
 // * In TypeScript, an object is a collection of key-value pairs with specified types for each key, providing static type checking for properties.
 
-let car: {brand: string, year: number} = {brand: "toyota", year: 2020}
-car.brand = "ford"
+let car: { brand: string; year: number } = { brand: "toyota", year: 2020 };
+car.brand = "ford";
 // car.color = "white"
 
-let car1: {brand: string, year: number} = {brand: "mitsubishi", year: 2022}
-let book = {title: "book", cost: 20}
-let pen = {title: "pen", cost: 15}
-let notebook = {title: "notebook"}
-let items: {readonly title: string, cost?: number}[] = [book, pen, notebook]
+let car1: { brand: string; year: number } = { brand: "mitsubishi", year: 2022 };
+let book = { title: "book", cost: 20 };
+let pen = { title: "pen", cost: 15 };
+let notebook = { title: "notebook" };
+let items: { readonly title: string; cost?: number }[] = [book, pen, notebook];
 
 // items[0].title = "nen"
 
@@ -118,18 +119,128 @@ let items: {readonly title: string, cost?: number}[] = [book, pen, notebook]
 - Create an array products of type { title: string, price?: number }[] and assign it some values. Then, try to add an object with a price property of type string to it. 
 */
 
-let bike: {brand: string, year: number} = {brand: "Mikasa", year: 2025};
+let bike: { brand: string; year: number } = { brand: "Mikasa", year: 2025 };
 // bike.year = "22"
-let laptop: {brand: string, year?: number} = {brand: "Lenovo",}
+let laptop: { brand: string; year?: number } = { brand: "Lenovo" };
 
-
-let product1 = {title: "coke", price: 15}
-let product2 = {title: "royal", price: 14}
-let product3 = {title: "sparkle"}
-let products: {title: string, price?: number}[] = [product1, product2, product3]
-products[2].price = 13
+let product1 = { title: "coke", price: 15 };
+let product2 = { title: "royal", price: 14 };
+let product3 = { title: "sparkle" };
+let products: { title: string; price?: number }[] = [
+  product1,
+  product2,
+  product3,
+];
+products[2].price = 13;
 // products[2].price = "str"
 
-// * *## Functions - Fundamentals
+//* *## Functions - Fundamentals
 
 // * In TypeScript, functions can have typed parameters and return values, which provides static type checking and autocompletion support.
+
+function sayHi(name: string) {
+  console.log(`Hello there ${name.toUpperCase()}`);
+}
+
+// -any
+// -config
+// type
+
+sayHi("jerome");
+// sayHi(3);
+
+function calculateDiscount(price: number): number {
+  const hasDiscount = true;
+  if (hasDiscount) {
+    // return "Discount is applied";
+    return price;
+  }
+  return price * 0.9;
+}
+
+const finalPrice = calculateDiscount(200);
+
+//* *## Challenge
+
+/* Create a new array of names.
+- Write a new function that checks if a name is in your array. This function should take a name as a parameter and return a boolean.
+- Use this function to check if various names are in your array and log the results. */
+
+let teamMaki: string[] = ["jerome", "johnpaul", "catrina", "ann"];
+
+function checkTeamMember(str: string): boolean {
+  if (teamMaki.includes(str)) {
+    console.log(str);
+    return true;
+  } else {
+    console.log(str);
+    return false;
+  }
+}
+
+console.log(checkTeamMember("jerome"));
+console.log(checkTeamMember("ace"));
+console.log(checkTeamMember("catrina"));
+console.log(checkTeamMember("johnpaul"));
+console.log(checkTeamMember("ann"));
+
+//* *## Functions - Optional and Default Parameters
+
+/* In TypeScript, a default parameter value is an alternative to an optional parameter. When you provide a default value for a parameter, you're essentially making it optional because you're specifying a value that the function will use if no argument is provided for that parameter.
+
+However, there's a key difference between a parameter with a default value and an optional parameter. If a parameter has a default value, and you call the function without providing an argument for that parameter, the function will use the default value. But if a parameter is optional (indicated with a ?), and you call the function without providing an argument for that parameter, the value of the parameter inside the function will be undefined.
+
+- a function with optional parameters must work when they are not supplied
+*/
+
+function calculatePrice(price: number, discount?: number): number {
+  return price - (discount || 0);
+}
+
+let priceAfterDiscount = calculatePrice(100, 20);
+
+function calculateScore(
+  initialScore: number,
+  penaltyPoint: number = 0
+): number {
+  return initialScore - penaltyPoint;
+}
+
+let scoreAfterPenalty = calculateScore(100, 20);
+let scoreWithoutPenalty = calculateScore(100);
+
+//* *## Function - rest parameter
+
+// In JavaScript, a rest parameter is denoted by three dots (...) before the parameter's name and allows a function to accept any number of arguments. These arguments are collected into an array, which can be accessed within the function.
+function sum(message: string, ...nums: number[]): string {
+  const doubled = nums.map((num) => num * 2);
+  console.log(doubled);
+
+  let total = nums.reduce((prev, acc) => {
+    return prev + acc;
+  }, 0);
+  return `${message}  ${total}`;
+}
+
+let result = sum("The total is: ", 1, 2, 3, 4, 5);
+console.log(result);
+
+//* ## Functions - Using Union Types as Function Parameters
+
+//* *### Challenge
+
+// Your task is to create a function named processInput that accepts a parameter of a union type string | number. The function should behave as follows:
+
+/* - If the input is of type number, the function should multiply the number by 2 and log the result to the console.
+- If the input is of type string, the function should convert the string to uppercase and log the result to the console.*/
+
+function processInput(random: string | number): void {
+  if (typeof random === "number") {
+    console.log(random * 2);
+  } else {
+    console.log(random.toUpperCase());
+  }
+}
+
+processInput("jerome");
+processInput(12);
