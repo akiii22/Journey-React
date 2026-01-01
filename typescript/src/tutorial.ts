@@ -247,24 +247,24 @@ processInput(12);
 
 //** ## Functions - Using Objects as Function Parameters
 
-function createEmployee({ id }: { id: number }): {
-  id: number;
-  isActive: boolean;
-} {
-  return { id: 24, isActive: id % 2 === 0 };
-}
+// function createEmployee({ id }: { id: number }): {
+//   id: number;
+//   isActive: boolean;
+// } {
+//   return { id: 24, isActive: id % 2 === 0 };
+// }
 
-const first = createEmployee({ id: 1 });
-const second = createEmployee({ id: 2 });
-console.log(first, second);
+// const first = createEmployee({ id: 1 });
+// const second = createEmployee({ id: 2 });
+// console.log(first, second);
 
 // alternative
 
-function createStudent(student: { id: number; name: string }): void {
-  console.log(`Welcome ${student.name} with an id of ${student.id} in Class B`);
-}
+// function createStudent(student: { id: number; name: string }): void {
+//   console.log(`Welcome ${student.name} with an id of ${student.id} in Class B`);
+// }
 
-const newStudent = createStudent({ id: 23, name: "Anna" });
+// const newStudent = createStudent({ id: 23, name: "Anna" });
 
 /*
 TypeScript only performs excess property checks on object literals where they're used, not on references to them.
@@ -288,8 +288,6 @@ The function should behave as follows:
 - If input is of type string, the function should return the string in uppercase.
 - If the reverse property on the config object is true, and input is a string, the function should return the reversed string in uppercase.
 
-*/
-
 function processData(
   input: number | string,
   config: { reverse: boolean } = { reverse: false }
@@ -307,3 +305,16 @@ const data1 = processData(22, { reverse: true });
 const data2 = processData("jerome");
 const data3 = processData("bulosan", { reverse: true });
 console.log(data1, data2, data3);
+*/
+
+function createEmployee({ id }: { id: number }): {
+  id: number;
+  isActive: boolean;
+} {
+  return { id, isActive: id % 2 === 0 };
+}
+
+const first = createEmployee({ id: 1 });
+const second = createEmployee({ id: 2 });
+
+console.log(first, second);
