@@ -307,14 +307,18 @@ const data3 = processData("bulosan", { reverse: true });
 console.log(data1, data2, data3);
 */
 
-function createEmployee({ id }: { id: number }): {
-  id: number;
-  isActive: boolean;
-} {
-  return { id, isActive: id % 2 === 0 };
-}
+// function createEmployee({ id }: { id: number }): {
+//   id: number;
+//   isActive: boolean;
+// } {
+//   return { id, isActive: id % 2 === 0 };
+// }
 
-const first = createEmployee({ id: 1 });
-const second = createEmployee({ id: 2 });
+// const first = createEmployee({ id: 1 });
+// const second = createEmployee({ id: 2 });
 
-console.log(first, second);
+// console.log(first, second);
+
+// ## Type Alias
+
+// A type alias in TypeScript is a new name or shorthand for an existing type, making it easier to reuse complex types. However, it's important to note that it doesn't create a new unique type - it's just an alias.All the same rules apply to the aliased type, including the ability to mark properties as optional or readonly.
