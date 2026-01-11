@@ -322,3 +322,183 @@ console.log(data1, data2, data3);
 // ## Type Alias
 
 // A type alias in TypeScript is a new name or shorthand for an existing type, making it easier to reuse complex types. However, it's important to note that it doesn't create a new unique type - it's just an alias.All the same rules apply to the aliased type, including the ability to mark properties as optional or readonly.
+
+/*Easy to use and navigate */
+// type User = { id: number; name: string; isActive: boolean };
+
+// const john: User = {
+//   id: 1,
+//   name: "john",
+//   isActive: true,
+// };
+// const susan: User = {
+//   id: 1,
+//   name: "susan",
+//   isActive: false,
+// };
+
+// function createUser(user: User): User {
+//   console.log(`Hello there ${user.name.toUpperCase()} !!!`);
+
+//   return user;
+// }
+
+// createUser(john);
+// createUser(susan);
+
+/*
+## Challenge
+
+- Define the Employee type: Create a type Employee with properties id (number), name (string), and department (string).
+
+- Define the Manager type: Create a type Manager with properties id (number), name (string), and employees (an array of Employee).
+
+- Create a Union Type: Define a type Staff that is a union of Employee and Manager.
+
+- Create the printStaffDetails function: This function should accept a parameter of type Staff. Inside the function, use a type guard to check if the 'employees' property exists in the passed object. If it does, print a message indicating that the person is a manager and the number of employees they manage. If it doesn't, print a message indicating that the person is an employee and the department they belong to.
+
+- Create Employee and Manager objects: Create two Employee objects. One named alice and second named steve. Also create a Manager object named bob who manages alice and steve.
+
+- Test the function: Call the printStaffDetails function with alice and bob as arguments and verify the output.
+
+*/
+
+type Employee = { id: number; name: string; department: string };
+
+type Manager = { id: number; name: string; employees: Employee[] };
+
+type Staff = Employee | Manager;
+
+const alice: Staff = {
+  id: 1,
+  name: "alice",
+  department: "HR",
+};
+const steve: Staff = {
+  id: 2,
+  name: "steve",
+  department: "IT",
+};
+
+const bob: Staff = {
+  id: 3,
+  name: "bob",
+  employees: [steve, alice],
+};
+
+function printStaffDetails(staff: Staff): void {
+  if ("employees" in staff) {
+    console.log(
+      `${staff.name} is the manager and they manage ${staff.employees.length}`
+    );
+  } else {
+    console.log(
+      `${staff.name} is an employee and they belong to the ${staff.department} department.`
+    );
+  }
+}
+
+printStaffDetails(alice);
+printStaffDetails(steve);
+printStaffDetails(bob);
+
+/*
+## Intersection Types
+In TypeScript, an intersection type (TypeA & TypeB) is a way of combining multiple types into one. This means that an object of an intersection type will have all the properties of TypeA and all the properties of TypeB. It's a way of creating a new type that merges the properties of existing types.
+*/
+
+// type Book = { id: number; name: string; price: number };
+// type DiscountedBook = Book & { discount: number };
+// const book1: Book = {
+//   id: 1,
+//   name: "How to become a lumpiang Toge",
+//   price: 150,
+// };
+
+// const book2: Book = {
+//   id: 2,
+//   name: "secret life of Rizal",
+//   price: 200,
+// };
+
+// const discountedBook: DiscountedBook = {
+//   id: 3,
+//   name: "How to get money without going to job",
+//   price: 100,
+//   discount: 0.15,
+// };
+
+/*
+## Interface - Fundamentals
+- allow to setup shape for objects (only objects)
+
+*/
+
+// interface Book {
+//   readonly isbn: number;
+//   title: string;
+//   author: string;
+//   genre?: string;
+//   printAuthor(): void;
+//   printTitle(message: string): string;
+//   printSomething: (someValue: number) => number;
+// }
+
+// const deepWork: Book = {
+//   isbn: 123,
+//   title: "Deep Work",
+//   author: "cal newport",
+//   genre: "self-help",
+//   printAuthor() {
+//     console.log(this.author);
+//   },
+//   printTitle(message) {
+//     return `${message} ${this.title}`;
+//   },
+
+// printSomething: function (someValue) {
+//   return someValue;
+// },
+
+//   printSomething: (someValue) => someValue,
+// };
+
+// deepWork.isbn = "sj"
+// deepWork.printAuthor();
+// console.log(deepWork.printTitle("The title of the book is"));
+// console.log(deepWork.printSomething(24));
+
+/*
+
+## Challenge
+
+- Start by defining an interface Computer using the interface keyword. This will serve as a blueprint for objects that will be of this type.
+- Inside the interface, define the properties that the object should have. In this case, we have id, brand, ram, and storage.
+- Use the readonly keyword before the id property to indicate that it cannot be changed once it's set.
+- Use the ? after the storage property to indicate that this property is optional and may not exist on all objects of this type.
+- Also inside the interface, define any methods that the object should have. In this case, we have upgradeRam, which is a function that takes a number and returns a number.
+- Now that we have our interface, we can create an object that adheres to this interface. This object should have all the properties defined in the interface (except for optional ones, which are... optional), and the methods should be implemented.
+- Finally, we can use our object. We can call its upgradeRam method to increase its RAM.
+
+*/
+
+interface Computer {
+  readonly id: number;
+  brand: string;
+  ram: number;
+  storage?: number;
+  updateRam(num: number): string;
+}
+
+const computer1: Computer = {
+  id: 1,
+  brand: "Lenovo",
+  ram: 35,
+  updateRam(num) {
+    this.ram += num;
+    return `Your ram is increase by ${this.ram}`;
+  },
+};
+
+console.log(computer1.updateRam(24));
+console.log(computer1);
