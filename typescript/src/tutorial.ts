@@ -363,44 +363,44 @@ console.log(data1, data2, data3);
 
 */
 
-type Employee = { id: number; name: string; department: string };
+// type Employee = { id: number; name: string; department: string };
 
-type Manager = { id: number; name: string; employees: Employee[] };
+// type Manager = { id: number; name: string; employees: Employee[] };
 
-type Staff = Employee | Manager;
+// type Staff = Employee | Manager;
 
-const alice: Staff = {
-  id: 1,
-  name: "alice",
-  department: "HR",
-};
-const steve: Staff = {
-  id: 2,
-  name: "steve",
-  department: "IT",
-};
+// const alice: Staff = {
+//   id: 1,
+//   name: "alice",
+//   department: "HR",
+// };
+// const steve: Staff = {
+//   id: 2,
+//   name: "steve",
+//   department: "IT",
+// };
 
-const bob: Staff = {
-  id: 3,
-  name: "bob",
-  employees: [steve, alice],
-};
+// const bob: Staff = {
+//   id: 3,
+//   name: "bob",
+//   employees: [steve, alice],
+// };
 
-function printStaffDetails(staff: Staff): void {
-  if ("employees" in staff) {
-    console.log(
-      `${staff.name} is the manager and they manage ${staff.employees.length}`
-    );
-  } else {
-    console.log(
-      `${staff.name} is an employee and they belong to the ${staff.department} department.`
-    );
-  }
-}
+// function printStaffDetails(staff: Staff): void {
+//   if ("employees" in staff) {
+//     console.log(
+//       `${staff.name} is the manager and they manage ${staff.employees.length}`
+//     );
+//   } else {
+//     console.log(
+//       `${staff.name} is an employee and they belong to the ${staff.department} department.`
+//     );
+//   }
+// }
 
-printStaffDetails(alice);
-printStaffDetails(steve);
-printStaffDetails(bob);
+// printStaffDetails(alice);
+// printStaffDetails(steve);
+// printStaffDetails(bob);
 
 /*
 ## Intersection Types
@@ -482,23 +482,150 @@ In TypeScript, an intersection type (TypeA & TypeB) is a way of combining multip
 
 */
 
-interface Computer {
-  readonly id: number;
-  brand: string;
-  ram: number;
-  storage?: number;
-  updateRam(num: number): string;
-}
+// interface Computer {
+//   readonly id: number;
+//   brand: string;
+//   ram: number;
+//   storage?: number;
+//   updateRam(num: number): string;
+// }
 
-const computer1: Computer = {
-  id: 1,
-  brand: "Lenovo",
-  ram: 35,
-  updateRam(num) {
-    this.ram += num;
-    return `Your ram is increase by ${this.ram}`;
-  },
-};
+// const computer1: Computer = {
+//   id: 1,
+//   brand: "Lenovo",
+//   ram: 35,
+//   updateRam(num) {
+//     this.ram += num;
+//     return `Your ram is increase by ${this.ram}`;
+//   },
+// };
 
-console.log(computer1.updateRam(24));
-console.log(computer1);
+// console.log(computer1.updateRam(24));
+// console.log(computer1);
+
+// ## Interface - Merging, Extend, TypeGuard
+
+// interface Person {
+//   name: string;
+//   getDetails(): string;
+// }
+
+// interface Dogowner {
+//   dogName: string;
+//   getDogDetails(): string;
+// }
+
+// interface Person {
+//   age: number;
+// }
+
+// const person: Person = {
+//   name: "jerome",
+//   age: 24,
+//   getDetails() {
+//     return `Name: ${this.name}, Age: ${this.age}`;
+//   },
+// };
+
+// interface Employee extends Person {
+//   employeeId: number;
+// }
+
+// const employee: Employee = {
+//   employeeId: 123,
+//   name: "peter",
+//   age: 22,
+//   getDetails() {
+//     return `Name: ${this.name}, Age: ${this.age}, EmployeeId: ${this.employeeId}`;
+//   },
+// };
+
+// interface Manager extends Person, Dogowner {
+//   managePeople(): void;
+// }
+
+// const manager: Manager = {
+//   name: "bob",
+//   age: 35,
+//   dogName: "rex",
+//   getDetails() {
+//     return `Name: ${this.name}, Age: ${this.age}, dog name: ${this.dogName}`;
+//   },
+//   getDogDetails() {
+//     return `dog name: ${this.dogName}`;
+//   },
+//   managePeople() {
+//     console.log(`${this.name} is the Manager.`);
+//   },
+// };
+// console.log(person.getDetails());
+// console.log(employee.getDetails());
+// console.log(manager.getDogDetails());
+
+/*
+## Challenge - Part 1
+
+- Define the Person interface Start by defining a Person interface with a name property of type string.
+- Define the DogOwner interface Next, define a DogOwner interface that extends Person and adds a dogName property of type string.
+- Define the Manager interface Then, define a Manager interface that extends Person and adds two methods: managePeople and delegateTasks. Both methods should have a return type of void.
+- Define the getEmployee function Now, define a function called getEmployee that returns a Person, DogOwner, or Manager. Inside this function, generate a random number and use it to decide which type of object to return. If the number is less than 0.33, return a Person. If it's less than 0.66, return a DogOwner. Otherwise, return a Manager.
+- Finally, create a variable called employee that can be a Person, DogOwner, or Manager, and assign it the return value of getEmployee. Then, log employee to the console.
+*/
+
+// interface Person {
+//   name: string;
+// }
+
+// interface DogOwner extends Person {
+//   dogName: string;
+// }
+
+// interface Manager extends Person {
+//   managePeople(): void;
+//   delegateTask(): void;
+// }
+
+// function getEmployee(): Manager | Person | DogOwner {
+//   let randomNum = Math.random();
+//   console.log(randomNum);
+//   if (randomNum < 0.33) {
+//     return {
+//       name: "Jerome",
+//     };
+//   } else if (randomNum < 0.66) {
+//     return {
+//       name: "John",
+//       dogName: "rex",
+//     };
+//   } else {
+//     return {
+//       name: "bob",
+//       managePeople() {
+//         console.log("I manage people");
+//       },
+//       delegateTask() {
+//         console.log("Your task is to manage people");
+//       },
+//     };
+//   }
+// }
+
+// const employee: Manager | Person | DogOwner = getEmployee();
+// console.log(employee);
+
+// function isManager(obj: Manager | Person | DogOwner): obj is Manager {
+//   return "managePeople" in obj;
+// }
+
+// if (isManager(employee)) {
+//   employee.delegateTask();
+// }
+
+/*
+## Interface vs Type Alias
+
+A type alias is a way to give a name to a type. It can represent primitive types, union types, intersection types, tuples, and any other types. Once defined, the alias can be used anywhere in place of the actual type.
+
+Key Differences
+- Type aliases can represent primitive types, union types, intersection types, tuples, etc., while interfaces are primarily used to represent the shape of an object.
+*/
