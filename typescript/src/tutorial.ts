@@ -1,3 +1,4 @@
+import { person } from "./tutorial";
 // * * Type Annotations
 
 // * TypeScript Type Annotations allow developers to specify the types of variables, function parameters, return types, and object properties.
@@ -201,7 +202,7 @@ let priceAfterDiscount = calculatePrice(100, 20);
 
 function calculateScore(
   initialScore: number,
-  penaltyPoint: number = 0
+  penaltyPoint: number = 0,
 ): number {
   return initialScore - penaltyPoint;
 }
@@ -947,3 +948,135 @@ However, TypeScript's ability to infer types from JavaScript is not as robust as
 ```
 
 */
+
+/* 
+
+## Type Guarding
+
+Type guarding is a term in TypeScript that refers to the ability to narrow down the type of an object within a certain scope. This is usually done using conditional statements that check the type of an object.
+
+In the context of TypeScript, a type guard is some expression that performs a runtime check that guarantees the type in some scope.
+
+*/
+
+// type ValueType = string | boolean | number;
+
+// let value: ValueType;
+// const randomNum = Math.random();
+// value = randomNum < 0.33 ? "Hello" : randomNum < 0.66 ? 123.456 : true;
+
+// function checkValue(value: ValueType): void {
+//   if (typeof value === "string") {
+//     console.log(value.toLowerCase());
+//     return;
+//   }
+//   if (typeof value === "number") {
+//     console.log(value.toFixed(2));
+//     return;
+//   }
+//   if (typeof value === "boolean") {
+//     console.log(`boolean: ${value}`);
+//     return;
+//   }
+// }
+
+// checkValue(value);
+
+// type Dog = {
+//   type: "dog";
+//   name: string;
+//   bark: () => void;
+// };
+
+// type Cat = {
+//   type: "cat";
+//   name: string;
+//   meow: () => void;
+// };
+
+// type Animal = Cat | Dog;
+
+// function makeSound(animal: Animal) {
+//   if (animal.type === "dog") {
+//     animal.bark();
+//   } else {
+//     animal.meow();
+//   }
+// }
+
+// function makeSound(animal: Animal) {
+//   if ("bark" in animal) {
+//     animal.bark();
+//   } else {
+//     animal.meow();
+//   }
+// }
+
+// function printLength(str: string | null | undefined) {
+//   if (str) {
+//     console.log(str.length);
+//   } else {
+//     console.log("no string provided");
+//   }
+// }
+
+// let hello = "hello";
+// printLength(hello);
+// printLength("");
+// printLength(null);
+
+// try {
+//   throw "some error";
+//   // throw new Error("There is an error");
+// } catch (error) {
+//   if (error instanceof Error) {
+//     console.log(`Caught an error: ${error.message}`);
+//   } else {
+//     console.log("Unknown error...");
+//   }
+// }
+
+// function checkInput(input: Date | string): string {
+//   if (input instanceof Date) {
+//     return input.getFullYear().toString();
+//   } else {
+//     return input;
+//   }
+// }
+
+// const year = checkInput(new Date());
+// const randomVal = checkInput("11-09-2000");
+// console.log(year);
+// console.log(randomVal);
+
+type Student = {
+  name: string;
+  study: () => void;
+};
+
+type User = {
+  name: string;
+  login: () => void;
+};
+
+type Person = Student | User;
+
+const randomPerson = (): Person => {
+  return Math.random() > 0.5
+    ? { name: "john", study: () => console.log("Studying") }
+    : { name: "mary", login: () => console.log("Logging in") };
+};
+
+const person = randomPerson();
+
+function isStudent(person: Person): person is Student {
+  // return "study" in person;
+
+  return (person as Student).study !== undefined;
+}
+
+if (isStudent(person)) {
+  person.study();
+} else {
+  person.login();
+}
