@@ -1049,34 +1049,104 @@ In the context of TypeScript, a type guard is some expression that performs a ru
 // console.log(year);
 // console.log(randomVal);
 
-type Student = {
-  name: string;
-  study: () => void;
-};
+// type Student = {
+//   name: string;
+//   study: () => void;
+// };
 
-type User = {
-  name: string;
-  login: () => void;
-};
+// type User = {
+//   name: string;
+//   login: () => void;
+// };
 
-type Person = Student | User;
+// type Person = Student | User;
 
-const randomPerson = (): Person => {
-  return Math.random() > 0.5
-    ? { name: "john", study: () => console.log("Studying") }
-    : { name: "mary", login: () => console.log("Logging in") };
-};
+// const randomPerson = (): Person => {
+//   return Math.random() > 0.5
+//     ? { name: "john", study: () => console.log("Studying") }
+//     : { name: "mary", login: () => console.log("Logging in") };
+// };
 
-const person = randomPerson();
+// const person = randomPerson();
 
-function isStudent(person: Person): person is Student {
-  // return "study" in person;
+// function isStudent(person: Person): person is Student {
+//   // return "study" in person;
 
-  return (person as Student).study !== undefined;
+//   return (person as Student).study !== undefined;
+// }
+
+// if (isStudent(person)) {
+//   person.study();
+// } else {
+//   person.login();
+// }
+
+/*
+## Generics - Fundamentals
+
+Generics in TypeScript are a way to create reusable code components that work with a variety of types as opposed to a single one.
+
+In other words, generics allow you to write a function or a class that can work with any data type. You can think of generics as a kind of variable for types.
+
+*/
+
+// let array1: string[] = ["Apple", "Banana", "Mango"];
+// let array2: number[] = [1, 2, 3];
+// let array3: boolean[] = [true, false, true];
+
+// let array1: Array<string> = ["Apple", "Banana", "Mango"];
+
+// function createString(arg: string): string {
+//   return arg;
+// }
+
+// function createNumber(arg: number): number {
+//   return arg;
+// }
+
+// function generateFunction<T>(arg: T): T {
+//   return arg;
+// }
+
+// const somenumber = generateFunction<number>(24);
+// const someString = generateFunction<string>("Hello Word");
+// console.log(someString);
+// console.log(somenumber);
+
+// interface GenericInterface<T> {
+//   value: T;
+//   getValue: () => T;
+// }
+
+// const genericString: GenericInterface<string> = {
+//   value: "jerome",
+//   getValue() {
+//     return this.value;
+//   },
+// };
+
+// async function someFunct(): Promise<string> {
+//   return "hello world";
+// }
+
+// const results = someFunct();
+
+function generateStringArray(length: number, value: string): string[] {
+  let result: string[] = [];
+  result = Array(length).fill(value);
+  return result;
 }
 
-if (isStudent(person)) {
-  person.study();
-} else {
-  person.login();
+// console.log(generateStringArray(5, "hello"));
+
+//! Generic Type <T> example
+function createArray<T>(length: number, value: T): T[] {
+  let result: T[] = [];
+  result = Array(length).fill(value);
+  return result;
 }
+
+const arrayString = createArray<string>(12, "jerome");
+const arrayNum = createArray<number>(10, 9);
+const arrayBool = createArray<boolean>(12, true);
+console.log(arrayString, arrayNum, arrayBool);
