@@ -1131,22 +1131,87 @@ In other words, generics allow you to write a function or a class that can work 
 
 // const results = someFunct();
 
-function generateStringArray(length: number, value: string): string[] {
-  let result: string[] = [];
-  result = Array(length).fill(value);
-  return result;
-}
+// function generateStringArray(length: number, value: string): string[] {
+//   let result: string[] = [];
+//   result = Array(length).fill(value);
+//   return result;
+// }
 
 // console.log(generateStringArray(5, "hello"));
 
 //! Generic Type <T> example
-function createArray<T>(length: number, value: T): T[] {
-  let result: T[] = [];
-  result = Array(length).fill(value);
-  return result;
+// function createArray<T>(length: number, value: T): T[] {
+//   let result: T[] = [];
+//   result = Array(length).fill(value);
+//   return result;
+// }
+
+// const arrayString = createArray<string>(12, "jerome");
+// const arrayNum = createArray<number>(10, 9);
+// const arrayBool = createArray<boolean>(12, true);
+// console.log(arrayString, arrayNum, arrayBool);
+
+// function pair<T, U>(param: T, param2: U): [T, U] {
+//   return [param, param2];
+// }
+
+// let results = pair<number, string>(25, "jerome");
+// console.log(results);
+
+// function processValue<T extends string | number>(value: T): T {
+//   console.log(value);
+//   return value;
+// }
+
+// processValue("hello");
+// processValue(12);
+
+// type Car = {
+//   brand: string;
+//   model: string;
+// };
+
+// const cars: Car = {
+//   brand: "ford",
+//   model: "mustang",
+// };
+
+// type Product = {
+//   name: string;
+//   price: number;
+// };
+
+// const product: Product = {
+//   name: "shoes",
+//   price: 1.99,
+// };
+
+// type Student = {
+//   name: string;
+//   age: number;
+// };
+
+// const student: Student = {
+//   name: "peter",
+//   age: 20,
+// };
+
+// function printName<T extends { name: string }>(input: T): void {
+//   console.log(input.name);
+// }
+
+// printName(product);
+// printName(student);
+// printName(car);
+
+interface StoreData<T = any> {
+  data: T[];
 }
 
-const arrayString = createArray<string>(12, "jerome");
-const arrayNum = createArray<number>(10, 9);
-const arrayBool = createArray<boolean>(12, true);
-console.log(arrayString, arrayNum, arrayBool);
+const storeNumbers: StoreData<number> = {
+  data: [1, 2, 3, 4],
+};
+
+const randomStuff: StoreData = {
+  data: ["hello", 1],
+};
