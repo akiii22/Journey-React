@@ -1204,14 +1204,63 @@ In other words, generics allow you to write a function or a class that can work 
 // printName(student);
 // printName(car);
 
-interface StoreData<T = any> {
-  data: T[];
+// interface StoreData<T = any> {
+//   data: T[];
+// }
+
+// const storeNumbers: StoreData<number> = {
+//   data: [1, 2, 3, 4],
+// };
+
+// const randomStuff: StoreData = {
+//   data: ["hello", 1],
+// };
+
+import { z } from "zod";
+
+const url = "https://www.course-api.com/react-tours-project";
+
+const tourSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  info: z.string(),
+  image: z.string(),
+  price: z.string(),
+});
+
+type Tour = z.infer<typeof tourSchema>;
+
+// type Tour = {
+//   id: string;
+//   name: string;
+//   info: string;
+//   image: string;
+//   price: string;
+// };
+
+async function fetchData(url: string): Promise<Tour[]> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`Http error! status: ${res.status}`);
+    }
+    const rawData: Tour[] = await res.json();
+    const result = tourSchema.array().safeParse(rawData);
+    console.log(result);
+    if (!result.success) {
+      throw new Error(`Invalid data: ${result.error}`);
+    }
+    return result.data;
+  } catch (error) {
+    const errMessage =
+      error instanceof Error ? error.message : "There was an error";
+    console.log(errMessage);
+    return [];
+  }
 }
 
-const storeNumbers: StoreData<number> = {
-  data: [1, 2, 3, 4],
-};
+const tours = await fetchData(url);
 
-const randomStuff: StoreData = {
-  data: ["hello", 1],
-};
+tours.map((tour) => {
+  console.log(tour.image);
+});
